@@ -202,7 +202,7 @@ Metrics:
 ### 2. Confusion Matrix
 ![Confusion Matrix](image/confusion_matrix.png)
    - Observation:
-      - There is a high number of False Positives (4,402), indicating that the model incorrectly predicts "bad loans" as "good loans" often.
+      - There is a high number of False Positives (4,490), indicating that the model incorrectly predicts "bad loans" often.
       - Recall (0.8133) is high, showing that the model successfully identifies a large portion of the actual bad loans.
    - Insight:
       - The model prioritizes Recall (identifying bad loans) over Precision (minimizing false alarms).
@@ -212,7 +212,7 @@ Metrics:
    - Observation:
 
       - Precision remains moderate at lower recall values and starts to decrease as recall increases.
-      - The AUC score (0.4952) suggests the model has room for improvement in balancing precision and recall.
+      - The AUC score (0.4967) suggests the model has room for improvement in balancing precision and recall.
 
    - The model's performance on imbalanced data can be improved further through:
       - Adjusting the classification threshold.
@@ -222,7 +222,7 @@ Metrics:
 ![ROC Curve](image/roc.png)
    - Observation:
 
-      - The AUC score (0.6824) indicates that the model performs moderately well at distinguishing between the two classes (bad and good loans).
+      - The AUC score (0.6777) indicates that the model performs moderately well at distinguishing between the two classes (bad and good loans).
       - The curve is above the random baseline but does not reach a near-perfect area under the curve.
    - Insight:
 
@@ -230,16 +230,16 @@ Metrics:
    - Further improvements could include:
       - Feature engineering: Add interaction features or remove irrelevant ones.
       - Model tuning: Increase hidden layer neurons, optimize learning rate, or try other architectures (e.g., deeper networks).
-### 5. Final Metrics at Best Threshold (0.44)
-Accuracy: 0.5643
-Precision: 0.4247
-Recall: 0.8133
-F1 Score: 0.5580
+### 5. Final Metrics at Best Threshold (0.35)
+Accuracy: 0.5585
+Precision: 0.4213
+Recall: 0.8181
+F1 Score: 0.5562
    - Observation:
 
-      - The threshold of 0.44 was selected to optimize the F1 Score (0.5580).
-      - High Recall (0.8133) comes at the cost of lower Precision (0.4247).
-      - The overall Accuracy (0.5643) reflects the challenge of working with imbalanced data.
+      - The threshold of 0.35 was selected to optimize the F1 Score (0.5562).
+      - High Recall (0.8181) comes at the cost of lower Precision (0.4213).
+      - The overall Accuracy (0.5662) reflects the challenge of working with imbalanced data.
    - Insight:
 
       - This threshold prioritizes reducing False Negatives, which aligns with the goal of identifying as many bad loans as possible.However, the low Precision suggests many False Positives, which might cause unnecessary interventions in downstream processes.
