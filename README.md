@@ -168,6 +168,7 @@ Metrics:
 
 ## EDA:
    - **The bad_flag target variable is highly imbalanced.**
+![Confusion Matrix](image/training_missing.png)
    - High Missing Columns:
       - Columns like `desc` and `mths_since_last_major_derog` have excessive missing data and can be dropped unless domain knowledge suggests otherwise.
    - Moderate Missing Columns:
@@ -191,6 +192,7 @@ Metrics:
 ## Neural Network Insights
 
 ### 1. Training Loss Trend
+![Training Loss Trend](image/loss.png)
    - Observation:
       - The loss steadily decreases over 50 epochs, indicating that the model is learning and optimizing effectively.
       - There are minor fluctuations, but the overall trend is downward.
@@ -198,7 +200,7 @@ Metrics:
       - The model shows good convergence, suggesting that the learning rate and optimizer are appropriately configured.
       - However, the plateau in later epochs indicates that further fine-tuning (e.g., regularization or early stopping) might be explored.
 ### 2. Confusion Matrix
-
+![Confusion Matrix](image/confusion_matrix.png)
    - Observation:
       - There is a high number of False Positives (4,402), indicating that the model incorrectly predicts "bad loans" as "good loans" often.
       - Recall (0.8133) is high, showing that the model successfully identifies a large portion of the actual bad loans.
@@ -206,6 +208,7 @@ Metrics:
       - The model prioritizes Recall (identifying bad loans) over Precision (minimizing false alarms).
       - This is suitable for the given use case, where detecting bad loans is critical, even at the cost of some false positives.
 ### 3. Precision-Recall Curve
+![Precision-Recall Curve](image/prc.png)
    - Observation:
 
       - Precision remains moderate at lower recall values and starts to decrease as recall increases.
@@ -216,7 +219,7 @@ Metrics:
       - Applying techniques such as SMOTE or class-weighted loss functions.
       - Experimenting with model architecture or ensemble methods.
 ### 4. ROC Curve
-
+![ROC Curve](image/roc.png)
    - Observation:
 
       - The AUC score (0.6824) indicates that the model performs moderately well at distinguishing between the two classes (bad and good loans).
