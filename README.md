@@ -68,7 +68,11 @@ seaborn
 scikit-learn
 torch
 imbalanced-learn
-
+### 3. Install Jupyter Notebook Using pip
+Ensure you have Python installed (version 3.6 or higher is recommended).
+```bash
+pip install notebook
+```
 ## **How to Run the Project**
 
 ### Step 1: Run EDA
