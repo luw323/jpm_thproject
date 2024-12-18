@@ -12,6 +12,12 @@ This project involves two key stages:
    - Build, train, and evaluate a neural network using PyTorch to classify loan applications as good or bad (`bad_flag`).
    - Handle class imbalance and optimize the model's performance using advanced evaluation techniques.
 
+### Assumptions
+
+   - Rows with missing bad_flag in the training data are removed.
+   - Highly correlated features (total_bc_limit, percent_bc_gt_75, internal_score) are dropped.
+   - Class imbalance is addressed using downsampling and weighted loss.
+   - Test data features are standardized using the training set statistics to avoid data leakage.
 ---
 
 ## **Project Structure**
@@ -110,14 +116,12 @@ The network has:
   - Hidden Layer: A fully connected linear layer with hidden_size neurons.
   - ReLU Activation Functions: Applied after each linear transformation to introduce non-linearity.
   - Output Layer: A single neuron that outputs raw values (logits), which can be converted into probabilities using the sigmoid activation function during loss calculation.
+
 #### Neural Network Components
 
-#### `nn.Linear`
+##### `nn.Linear`
 The `nn.Linear` module applies a **linear transformation** to the input data:
-
-\[
-y = Wx + b
-\]
+`y = Wx + b`
 
 Where:
 - \( W \) is the **weight matrix** (learnable parameters).
@@ -126,46 +130,39 @@ Where:
 
 **Purpose**: The linear transformation allows the network to combine input features in a weighted fashion, learning the relationships between features.
 
----
-
-#### `nn.ReLU()`
+##### `nn.ReLU()`
 The `nn.ReLU()` module applies the **Rectified Linear Unit (ReLU)** activation function:
 
-\[
-f(x) = \max (0, x)
-\]
+`f(x) = Max (0, x)`
 
-**Key Points**:
-- **Function**: ReLU sets all negative values to \( 0 \) while keeping positive values unchanged.
-- **Non-Linearity**: ReLU introduces non-linearity, enabling the neural network to learn complex patterns and relationships in the data.
-- **Efficiency**: It is computationally efficient and avoids the vanishing gradient problem for positive values.
-
----
-
-### How They Work Together
-In a neural network layer:
-
-1. **`nn.Linear`** applies a linear transformation:
-   \[
-   y = Wx + b
-   \]
-2. **`nn.ReLU()`** applies the activation function to introduce non-linearity:
-   \[
-   f(x) = \max(0, x)
-   \]
 
 This combination allows the neural network to learn and represent complex data relationships.
 
----
+#### Training Loop:
+   - Balanced the dataset using downsampling.
+   - The data flows sequentially through:
+Input → fc1 → ReLU → fc2 → ReLU → fc3 → Output.
+   - Logits Output:
+      - The final output is raw values (logits), which are suitable for use with the binary cross-entropy loss (BCEWithLogitsLoss).
+      - The sigmoid function is applied internally in the loss function for stability.
 
-**Example in PyTorch
-
-Training Loop:
-
-Class Imbalance is addressed using a weighted loss function:
+   - Class Imbalance is addressed using a weighted loss function:
+```bash
 pos_weight = torch.tensor([len(y_train) / sum(y_train) - 1], dtype=torch.float32)
 criterion = nn.BCEWithLogitsLoss(pos_weight=pos_weight)
-Optimization: Adam optimizer with a learning rate of 0.01.
+```
+   - Optimization: Adam optimizer with a learning rate of 0.01.
+
+#### Model Evaluation:
+
+Metrics:
+   - Accuracy
+   - Precision
+   - Recall
+   - F1 Score
+   - ROC-AUC,Precision-Recall Curve
+   - Confusion Matrix
+
 
 
 ## Observations from the Correlation Heatmap:
